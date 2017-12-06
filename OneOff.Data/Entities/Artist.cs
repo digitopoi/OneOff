@@ -14,14 +14,20 @@ namespace OneOff.Data.Entities
     
     public partial class Artist
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public Artist()
+        {
+            this.Gigs = new HashSet<Gig>();
+        }
+    
         public int ArtistId { get; set; }
         public string Name { get; set; }
-        public byte Rating { get; set; }
+        public Nullable<byte> Rating { get; set; }
         public string Description { get; set; }
         public string UserName { get; set; }
         public string Password { get; set; }
-        public int TourId { get; set; }
     
-        public virtual Tour Tour { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Gig> Gigs { get; set; }
     }
 }

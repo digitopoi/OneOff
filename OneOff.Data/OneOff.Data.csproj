@@ -4,7 +4,7 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{A9F0B121-4D97-43E2-8EA4-C0F4B4CC8023}</ProjectGuid>
+    <ProjectGuid>{1EF24153-95A5-44BB-94A0-75443A2D7BDA}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>OneOff.Data</RootNamespace>
@@ -71,9 +71,6 @@
       <DependentUpon>OneOffEntities.edmx</DependentUpon>
     </Compile>
     <Compile Include="Entities\Request.cs">
-      <DependentUpon>OneOffEntities.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Entities\Tour.cs">
       <DependentUpon>OneOffEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="Entities\Venue.cs">

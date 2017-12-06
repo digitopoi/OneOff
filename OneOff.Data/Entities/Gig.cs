@@ -14,17 +14,11 @@ namespace OneOff.Data.Entities
     
     public partial class Gig
     {
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Gig()
-        {
-            this.Tours = new HashSet<Tour>();
-        }
-    
         public int GigId { get; set; }
         public System.DateTime Date { get; set; }
         public string PostalCode { get; set; }
+        public int ArtistId { get; set; }
     
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Tour> Tours { get; set; }
+        public virtual Artist Artist { get; set; }
     }
 }

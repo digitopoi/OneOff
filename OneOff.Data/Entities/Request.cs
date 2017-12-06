@@ -14,17 +14,11 @@ namespace OneOff.Data.Entities
     
     public partial class Request
     {
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Request()
-        {
-            this.Venues = new HashSet<Venue>();
-        }
-    
         public int RequestId { get; set; }
         public System.DateTime Date { get; set; }
         public decimal Offer { get; set; }
+        public int VenueId { get; set; }
     
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Venue> Venues { get; set; }
+        public virtual Venue Venue { get; set; }
     }
 }

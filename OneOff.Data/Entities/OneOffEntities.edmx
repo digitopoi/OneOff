@@ -11,11 +11,10 @@
           </Key>
           <Property Name="ArtistId" Type="int" Nullable="false" />
           <Property Name="Name" Type="nchar" MaxLength="50" Nullable="false" />
-          <Property Name="Rating" Type="tinyint" Nullable="false" />
-          <Property Name="Description" Type="nchar" MaxLength="1000" Nullable="false" />
+          <Property Name="Rating" Type="tinyint" />
+          <Property Name="Description" Type="nchar" MaxLength="1000" />
           <Property Name="UserName" Type="nchar" MaxLength="50" Nullable="false" />
           <Property Name="Password" Type="nchar" MaxLength="25" Nullable="false" />
-          <Property Name="TourId" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="Gigs">
           <Key>
@@ -24,6 +23,7 @@
           <Property Name="GigId" Type="int" Nullable="false" />
           <Property Name="Date" Type="datetime" Nullable="false" />
           <Property Name="PostalCode" Type="nchar" MaxLength="20" Nullable="false" />
+          <Property Name="ArtistId" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="Requests">
           <Key>
@@ -32,13 +32,7 @@
           <Property Name="RequestId" Type="int" Nullable="false" />
           <Property Name="Date" Type="datetime" Nullable="false" />
           <Property Name="Offer" Type="decimal" Precision="9" Scale="0" Nullable="false" />
-        </EntityType>
-        <EntityType Name="Tours">
-          <Key>
-            <PropertyRef Name="TourId" />
-          </Key>
-          <Property Name="TourId" Type="int" Nullable="false" />
-          <Property Name="GigId" Type="int" Nullable="false" />
+          <Property Name="VenueId" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="Venues">
           <Key>
@@ -46,44 +40,33 @@
           </Key>
           <Property Name="VenueId" Type="int" Nullable="false" />
           <Property Name="Name" Type="nchar" MaxLength="50" Nullable="false" />
-          <Property Name="Description" Type="nchar" MaxLength="1000" Nullable="false" />
-          <Property Name="Rating" Type="tinyint" Nullable="false" />
+          <Property Name="Description" Type="nchar" MaxLength="1000" />
+          <Property Name="Rating" Type="tinyint" />
           <Property Name="PostalCode" Type="nchar" MaxLength="25" Nullable="false" />
-          <Property Name="RequestId" Type="int" Nullable="false" />
+          <Property Name="UserName" Type="nchar" MaxLength="50" />
+          <Property Name="Password" Type="nchar" MaxLength="25" />
         </EntityType>
-        <Association Name="FK_Artists_Tours_TourId">
-          <End Role="Tours" Type="Self.Tours" Multiplicity="1" />
-          <End Role="Artists" Type="Self.Artists" Multiplicity="*" />
+        <Association Name="FK_Gigs_ArtistId">
+          <End Role="Artists" Type="Self.Artists" Multiplicity="1" />
+          <End Role="Gigs" Type="Self.Gigs" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="Tours">
-              <PropertyRef Name="TourId" />
+            <Principal Role="Artists">
+              <PropertyRef Name="ArtistId" />
             </Principal>
-            <Dependent Role="Artists">
-              <PropertyRef Name="TourId" />
+            <Dependent Role="Gigs">
+              <PropertyRef Name="ArtistId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_Tours_Gigs_GigId">
-          <End Role="Gigs" Type="Self.Gigs" Multiplicity="1" />
-          <End Role="Tours" Type="Self.Tours" Multiplicity="*" />
+        <Association Name="FK_Requests_VenueId">
+          <End Role="Venues" Type="Self.Venues" Multiplicity="1" />
+          <End Role="Requests" Type="Self.Requests" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="Gigs">
-              <PropertyRef Name="GigId" />
+            <Principal Role="Venues">
+              <PropertyRef Name="VenueId" />
             </Principal>
-            <Dependent Role="Tours">
-              <PropertyRef Name="GigId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Venues_Requests_RequestId">
-          <End Role="Requests" Type="Self.Requests" Multiplicity="1" />
-          <End Role="Venues" Type="Self.Venues" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Requests">
-              <PropertyRef Name="RequestId" />
-            </Principal>
-            <Dependent Role="Venues">
-              <PropertyRef Name="RequestId" />
+            <Dependent Role="Requests">
+              <PropertyRef Name="VenueId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -91,19 +74,14 @@
           <EntitySet Name="Artists" EntityType="Self.Artists" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Gigs" EntityType="Self.Gigs" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Requests" EntityType="Self.Requests" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="Tours" EntityType="Self.Tours" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Venues" EntityType="Self.Venues" Schema="dbo" store:Type="Tables" />
-          <AssociationSet Name="FK_Artists_Tours_TourId" Association="Self.FK_Artists_Tours_TourId">
-            <End Role="Tours" EntitySet="Tours" />
+          <AssociationSet Name="FK_Gigs_ArtistId" Association="Self.FK_Gigs_ArtistId">
             <End Role="Artists" EntitySet="Artists" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Tours_Gigs_GigId" Association="Self.FK_Tours_Gigs_GigId">
             <End Role="Gigs" EntitySet="Gigs" />
-            <End Role="Tours" EntitySet="Tours" />
           </AssociationSet>
-          <AssociationSet Name="FK_Venues_Requests_RequestId" Association="Self.FK_Venues_Requests_RequestId">
-            <End Role="Requests" EntitySet="Requests" />
+          <AssociationSet Name="FK_Requests_VenueId" Association="Self.FK_Requests_VenueId">
             <End Role="Venues" EntitySet="Venues" />
+            <End Role="Requests" EntitySet="Requests" />
           </AssociationSet>
         </EntityContainer>
       </Schema>
@@ -117,12 +95,11 @@
           </Key>
           <Property Name="ArtistId" Type="Int32" Nullable="false" />
           <Property Name="Name" Type="String" MaxLength="50" FixedLength="true" Unicode="true" Nullable="false" />
-          <Property Name="Rating" Type="Byte" Nullable="false" />
-          <Property Name="Description" Type="String" MaxLength="1000" FixedLength="true" Unicode="true" Nullable="false" />
+          <Property Name="Rating" Type="Byte" />
+          <Property Name="Description" Type="String" MaxLength="1000" FixedLength="true" Unicode="true" />
           <Property Name="UserName" Type="String" MaxLength="50" FixedLength="true" Unicode="true" Nullable="false" />
           <Property Name="Password" Type="String" MaxLength="25" FixedLength="true" Unicode="true" Nullable="false" />
-          <Property Name="TourId" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="Tour" Relationship="Self.FK_Artists_Tours_TourId" FromRole="Artists" ToRole="Tours" />
+          <NavigationProperty Name="Gigs" Relationship="Self.FK_Gigs_ArtistId" FromRole="Artists" ToRole="Gigs" />
         </EntityType>
         <EntityType Name="Gig">
           <Key>
@@ -131,7 +108,8 @@
           <Property Name="GigId" Type="Int32" Nullable="false" />
           <Property Name="Date" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="PostalCode" Type="String" MaxLength="20" FixedLength="true" Unicode="true" Nullable="false" />
-          <NavigationProperty Name="Tours" Relationship="Self.FK_Tours_Gigs_GigId" FromRole="Gigs" ToRole="Tours" />
+          <Property Name="ArtistId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Artist" Relationship="Self.FK_Gigs_ArtistId" FromRole="Gigs" ToRole="Artists" />
         </EntityType>
         <EntityType Name="Request">
           <Key>
@@ -140,16 +118,8 @@
           <Property Name="RequestId" Type="Int32" Nullable="false" />
           <Property Name="Date" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="Offer" Type="Decimal" Precision="9" Scale="0" Nullable="false" />
-          <NavigationProperty Name="Venues" Relationship="Self.FK_Venues_Requests_RequestId" FromRole="Requests" ToRole="Venues" />
-        </EntityType>
-        <EntityType Name="Tour">
-          <Key>
-            <PropertyRef Name="TourId" />
-          </Key>
-          <Property Name="TourId" Type="Int32" Nullable="false" />
-          <Property Name="GigId" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="Artists" Relationship="Self.FK_Artists_Tours_TourId" FromRole="Tours" ToRole="Artists" />
-          <NavigationProperty Name="Gig" Relationship="Self.FK_Tours_Gigs_GigId" FromRole="Tours" ToRole="Gigs" />
+          <Property Name="VenueId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Venue" Relationship="Self.FK_Requests_VenueId" FromRole="Requests" ToRole="Venues" />
         </EntityType>
         <EntityType Name="Venue">
           <Key>
@@ -157,45 +127,34 @@
           </Key>
           <Property Name="VenueId" Type="Int32" Nullable="false" />
           <Property Name="Name" Type="String" MaxLength="50" FixedLength="true" Unicode="true" Nullable="false" />
-          <Property Name="Description" Type="String" MaxLength="1000" FixedLength="true" Unicode="true" Nullable="false" />
-          <Property Name="Rating" Type="Byte" Nullable="false" />
+          <Property Name="Description" Type="String" MaxLength="1000" FixedLength="true" Unicode="true" />
+          <Property Name="Rating" Type="Byte" />
           <Property Name="PostalCode" Type="String" MaxLength="25" FixedLength="true" Unicode="true" Nullable="false" />
-          <Property Name="RequestId" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="Request" Relationship="Self.FK_Venues_Requests_RequestId" FromRole="Venues" ToRole="Requests" />
+          <Property Name="UserName" Type="String" MaxLength="50" FixedLength="true" Unicode="true" />
+          <Property Name="Password" Type="String" MaxLength="25" FixedLength="true" Unicode="true" />
+          <NavigationProperty Name="Requests" Relationship="Self.FK_Requests_VenueId" FromRole="Venues" ToRole="Requests" />
         </EntityType>
-        <Association Name="FK_Artists_Tours_TourId">
-          <End Role="Tours" Type="Self.Tour" Multiplicity="1" />
-          <End Role="Artists" Type="Self.Artist" Multiplicity="*" />
+        <Association Name="FK_Gigs_ArtistId">
+          <End Role="Artists" Type="Self.Artist" Multiplicity="1" />
+          <End Role="Gigs" Type="Self.Gig" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="Tours">
-              <PropertyRef Name="TourId" />
+            <Principal Role="Artists">
+              <PropertyRef Name="ArtistId" />
             </Principal>
-            <Dependent Role="Artists">
-              <PropertyRef Name="TourId" />
+            <Dependent Role="Gigs">
+              <PropertyRef Name="ArtistId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_Tours_Gigs_GigId">
-          <End Role="Gigs" Type="Self.Gig" Multiplicity="1" />
-          <End Role="Tours" Type="Self.Tour" Multiplicity="*" />
+        <Association Name="FK_Requests_VenueId">
+          <End Role="Venues" Type="Self.Venue" Multiplicity="1" />
+          <End Role="Requests" Type="Self.Request" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="Gigs">
-              <PropertyRef Name="GigId" />
+            <Principal Role="Venues">
+              <PropertyRef Name="VenueId" />
             </Principal>
-            <Dependent Role="Tours">
-              <PropertyRef Name="GigId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Venues_Requests_RequestId">
-          <End Role="Requests" Type="Self.Request" Multiplicity="1" />
-          <End Role="Venues" Type="Self.Venue" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Requests">
-              <PropertyRef Name="RequestId" />
-            </Principal>
-            <Dependent Role="Venues">
-              <PropertyRef Name="RequestId" />
+            <Dependent Role="Requests">
+              <PropertyRef Name="VenueId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -203,19 +162,14 @@
           <EntitySet Name="Artists" EntityType="Self.Artist" />
           <EntitySet Name="Gigs" EntityType="Self.Gig" />
           <EntitySet Name="Requests" EntityType="Self.Request" />
-          <EntitySet Name="Tours" EntityType="Self.Tour" />
           <EntitySet Name="Venues" EntityType="Self.Venue" />
-          <AssociationSet Name="FK_Artists_Tours_TourId" Association="Self.FK_Artists_Tours_TourId">
-            <End Role="Tours" EntitySet="Tours" />
+          <AssociationSet Name="FK_Gigs_ArtistId" Association="Self.FK_Gigs_ArtistId">
             <End Role="Artists" EntitySet="Artists" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Tours_Gigs_GigId" Association="Self.FK_Tours_Gigs_GigId">
             <End Role="Gigs" EntitySet="Gigs" />
-            <End Role="Tours" EntitySet="Tours" />
           </AssociationSet>
-          <AssociationSet Name="FK_Venues_Requests_RequestId" Association="Self.FK_Venues_Requests_RequestId">
-            <End Role="Requests" EntitySet="Requests" />
+          <AssociationSet Name="FK_Requests_VenueId" Association="Self.FK_Requests_VenueId">
             <End Role="Venues" EntitySet="Venues" />
+            <End Role="Requests" EntitySet="Requests" />
           </AssociationSet>
         </EntityContainer>
       </Schema>
@@ -233,7 +187,6 @@
                 <ScalarProperty Name="Description" ColumnName="Description" />
                 <ScalarProperty Name="UserName" ColumnName="UserName" />
                 <ScalarProperty Name="Password" ColumnName="Password" />
-                <ScalarProperty Name="TourId" ColumnName="TourId" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -243,6 +196,7 @@
                 <ScalarProperty Name="GigId" ColumnName="GigId" />
                 <ScalarProperty Name="Date" ColumnName="Date" />
                 <ScalarProperty Name="PostalCode" ColumnName="PostalCode" />
+                <ScalarProperty Name="ArtistId" ColumnName="ArtistId" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -252,14 +206,7 @@
                 <ScalarProperty Name="RequestId" ColumnName="RequestId" />
                 <ScalarProperty Name="Date" ColumnName="Date" />
                 <ScalarProperty Name="Offer" ColumnName="Offer" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Tours">
-            <EntityTypeMapping TypeName="OneOffModel.Tour">
-              <MappingFragment StoreEntitySet="Tours">
-                <ScalarProperty Name="TourId" ColumnName="TourId" />
-                <ScalarProperty Name="GigId" ColumnName="GigId" />
+                <ScalarProperty Name="VenueId" ColumnName="VenueId" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -271,7 +218,8 @@
                 <ScalarProperty Name="Description" ColumnName="Description" />
                 <ScalarProperty Name="Rating" ColumnName="Rating" />
                 <ScalarProperty Name="PostalCode" ColumnName="PostalCode" />
-                <ScalarProperty Name="RequestId" ColumnName="RequestId" />
+                <ScalarProperty Name="UserName" ColumnName="UserName" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
