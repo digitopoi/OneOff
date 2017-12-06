@@ -1,0 +1,298 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="OneOffModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Artists">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" />
+          <Property Name="Name" Type="nchar" MaxLength="50" Nullable="false" />
+          <Property Name="Rating" Type="tinyint" Nullable="false" />
+          <Property Name="Description" Type="nchar" MaxLength="1000" />
+          <Property Name="UserName" Type="nchar" MaxLength="50" Nullable="false" />
+          <Property Name="Password" Type="nchar" MaxLength="25" Nullable="false" />
+          <Property Name="TourId" Type="nchar" MaxLength="10" />
+        </EntityType>
+        <EntityType Name="Gigs">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" />
+          <Property Name="Date" Type="datetime" Nullable="false" />
+          <Property Name="PostalCode" Type="nchar" MaxLength="32" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Requests">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" />
+          <Property Name="Date" Type="datetime" Nullable="false" />
+          <Property Name="Offer" Type="decimal" Precision="9" Scale="0" />
+        </EntityType>
+        <EntityType Name="Tours">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" />
+          <Property Name="GigId" Type="nchar" MaxLength="10" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Venues">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" />
+          <Property Name="Name" Type="nchar" MaxLength="50" Nullable="false" />
+          <Property Name="Rating" Type="tinyint" Nullable="false" />
+          <Property Name="PostalCode" Type="nchar" MaxLength="35" Nullable="false" />
+          <Property Name="RequestId" Type="int" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_Artists_TourId">
+          <End Role="Tours" Type="Self.Tours" Multiplicity="1" />
+          <End Role="Artists" Type="Self.Artists" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="Tours">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Artists">
+              <PropertyRef Name="Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Tours_GigId">
+          <End Role="Gigs" Type="Self.Gigs" Multiplicity="1" />
+          <End Role="Tours" Type="Self.Tours" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="Gigs">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Tours">
+              <PropertyRef Name="Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Venues_RequestId">
+          <End Role="Requests" Type="Self.Requests" Multiplicity="1" />
+          <End Role="Venues" Type="Self.Venues" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="Requests">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Venues">
+              <PropertyRef Name="Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="OneOffModelStoreContainer">
+          <EntitySet Name="Artists" EntityType="Self.Artists" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Gigs" EntityType="Self.Gigs" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Requests" EntityType="Self.Requests" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Tours" EntityType="Self.Tours" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Venues" EntityType="Self.Venues" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_Artists_TourId" Association="Self.FK_Artists_TourId">
+            <End Role="Tours" EntitySet="Tours" />
+            <End Role="Artists" EntitySet="Artists" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Tours_GigId" Association="Self.FK_Tours_GigId">
+            <End Role="Gigs" EntitySet="Gigs" />
+            <End Role="Tours" EntitySet="Tours" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Venues_RequestId" Association="Self.FK_Venues_RequestId">
+            <End Role="Requests" EntitySet="Requests" />
+            <End Role="Venues" EntitySet="Venues" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="OneOffModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Artist">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" />
+          <Property Name="Name" Type="String" MaxLength="50" FixedLength="true" Unicode="true" Nullable="false" />
+          <Property Name="Rating" Type="Byte" Nullable="false" />
+          <Property Name="Description" Type="String" MaxLength="1000" FixedLength="true" Unicode="true" />
+          <Property Name="UserName" Type="String" MaxLength="50" FixedLength="true" Unicode="true" Nullable="false" />
+          <Property Name="Password" Type="String" MaxLength="25" FixedLength="true" Unicode="true" Nullable="false" />
+          <Property Name="TourId" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+          <NavigationProperty Name="Tour" Relationship="Self.FK_Artists_TourId" FromRole="Artists" ToRole="Tours" />
+        </EntityType>
+        <EntityType Name="Gig">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" />
+          <Property Name="Date" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="PostalCode" Type="String" MaxLength="32" FixedLength="true" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="Tour" Relationship="Self.FK_Tours_GigId" FromRole="Gigs" ToRole="Tours" />
+        </EntityType>
+        <EntityType Name="Request">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" />
+          <Property Name="Date" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="Offer" Type="Decimal" Precision="9" Scale="0" />
+          <NavigationProperty Name="Venue" Relationship="Self.FK_Venues_RequestId" FromRole="Requests" ToRole="Venues" />
+        </EntityType>
+        <EntityType Name="Tour">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" />
+          <Property Name="GigId" Type="String" MaxLength="10" FixedLength="true" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="Artist" Relationship="Self.FK_Artists_TourId" FromRole="Tours" ToRole="Artists" />
+          <NavigationProperty Name="Gig" Relationship="Self.FK_Tours_GigId" FromRole="Tours" ToRole="Gigs" />
+        </EntityType>
+        <EntityType Name="Venue">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" />
+          <Property Name="Name" Type="String" MaxLength="50" FixedLength="true" Unicode="true" Nullable="false" />
+          <Property Name="Rating" Type="Byte" Nullable="false" />
+          <Property Name="PostalCode" Type="String" MaxLength="35" FixedLength="true" Unicode="true" Nullable="false" />
+          <Property Name="RequestId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Request" Relationship="Self.FK_Venues_RequestId" FromRole="Venues" ToRole="Requests" />
+        </EntityType>
+        <Association Name="FK_Artists_TourId">
+          <End Role="Tours" Type="Self.Tour" Multiplicity="1" />
+          <End Role="Artists" Type="Self.Artist" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="Tours">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Artists">
+              <PropertyRef Name="Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Tours_GigId">
+          <End Role="Gigs" Type="Self.Gig" Multiplicity="1" />
+          <End Role="Tours" Type="Self.Tour" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="Gigs">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Tours">
+              <PropertyRef Name="Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Venues_RequestId">
+          <End Role="Requests" Type="Self.Request" Multiplicity="1" />
+          <End Role="Venues" Type="Self.Venue" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="Requests">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Venues">
+              <PropertyRef Name="Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="OneOffEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Artists" EntityType="Self.Artist" />
+          <EntitySet Name="Gigs" EntityType="Self.Gig" />
+          <EntitySet Name="Requests" EntityType="Self.Request" />
+          <EntitySet Name="Tours" EntityType="Self.Tour" />
+          <EntitySet Name="Venues" EntityType="Self.Venue" />
+          <AssociationSet Name="FK_Artists_TourId" Association="Self.FK_Artists_TourId">
+            <End Role="Tours" EntitySet="Tours" />
+            <End Role="Artists" EntitySet="Artists" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Tours_GigId" Association="Self.FK_Tours_GigId">
+            <End Role="Gigs" EntitySet="Gigs" />
+            <End Role="Tours" EntitySet="Tours" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Venues_RequestId" Association="Self.FK_Venues_RequestId">
+            <End Role="Requests" EntitySet="Requests" />
+            <End Role="Venues" EntitySet="Venues" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="OneOffModelStoreContainer" CdmEntityContainer="OneOffEntities">
+          <EntitySetMapping Name="Artists">
+            <EntityTypeMapping TypeName="OneOffModel.Artist">
+              <MappingFragment StoreEntitySet="Artists">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Rating" ColumnName="Rating" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="UserName" ColumnName="UserName" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="TourId" ColumnName="TourId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Gigs">
+            <EntityTypeMapping TypeName="OneOffModel.Gig">
+              <MappingFragment StoreEntitySet="Gigs">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Date" ColumnName="Date" />
+                <ScalarProperty Name="PostalCode" ColumnName="PostalCode" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Requests">
+            <EntityTypeMapping TypeName="OneOffModel.Request">
+              <MappingFragment StoreEntitySet="Requests">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Date" ColumnName="Date" />
+                <ScalarProperty Name="Offer" ColumnName="Offer" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Tours">
+            <EntityTypeMapping TypeName="OneOffModel.Tour">
+              <MappingFragment StoreEntitySet="Tours">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="GigId" ColumnName="GigId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Venues">
+            <EntityTypeMapping TypeName="OneOffModel.Venue">
+              <MappingFragment StoreEntitySet="Venues">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Rating" ColumnName="Rating" />
+                <ScalarProperty Name="PostalCode" ColumnName="PostalCode" />
+                <ScalarProperty Name="RequestId" ColumnName="RequestId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
