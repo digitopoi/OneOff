@@ -7,17 +7,24 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace OneOff.Data
+namespace OneOff.Data.Entities
 {
     using System;
     using System.Collections.Generic;
     
     public partial class Gig
     {
-        public int Id { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public Gig()
+        {
+            this.Tours = new HashSet<Tour>();
+        }
+    
+        public int GigId { get; set; }
         public System.DateTime Date { get; set; }
         public string PostalCode { get; set; }
     
-        public virtual Tour Tour { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Tour> Tours { get; set; }
     }
 }

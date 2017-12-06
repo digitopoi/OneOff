@@ -7,7 +7,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace OneOff.Data
+namespace OneOff.Data.Entities
 {
     using System;
     using System.Data.Entity;

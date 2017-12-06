@@ -7,17 +7,20 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace OneOff.Data
+namespace OneOff.Data.Entities
 {
     using System;
     using System.Collections.Generic;
     
-    public partial class Tour
+    public partial class Venue
     {
-        public int Id { get; set; }
-        public string GigId { get; set; }
+        public int VenueId { get; set; }
+        public string Name { get; set; }
+        public string Description { get; set; }
+        public byte Rating { get; set; }
+        public string PostalCode { get; set; }
+        public int RequestId { get; set; }
     
-        public virtual Artist Artist { get; set; }
-        public virtual Gig Gig { get; set; }
+        public virtual Request Request { get; set; }
     }
 }

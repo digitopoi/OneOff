@@ -7,17 +7,24 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace OneOff.Data
+namespace OneOff.Data.Entities
 {
     using System;
     using System.Collections.Generic;
     
     public partial class Request
     {
-        public int Id { get; set; }
-        public System.DateTime Date { get; set; }
-        public Nullable<decimal> Offer { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public Request()
+        {
+            this.Venues = new HashSet<Venue>();
+        }
     
-        public virtual Venue Venue { get; set; }
+        public int RequestId { get; set; }
+        public System.DateTime Date { get; set; }
+        public decimal Offer { get; set; }
+    
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Venue> Venues { get; set; }
     }
 }
