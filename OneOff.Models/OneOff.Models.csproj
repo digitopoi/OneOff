@@ -52,8 +52,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Resources\ArtistCreateResource.cs" />
-    <Compile Include="Resources\VenueCreateResource.cs" />
+    <Compile Include="Resources\ArtistResource.cs" />
+    <Compile Include="Resources\VenueResource.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

@@ -73,38 +73,40 @@
     <Compile Include="Entities\Request.cs">
       <DependentUpon>OneOffEntities.tt</DependentUpon>
     </Compile>
+    <Compile Include="Entities\sysdiagram.cs">
+      <DependentUpon>OneOffEntities.tt</DependentUpon>
+    </Compile>
     <Compile Include="Entities\Venue.cs">
       <DependentUpon>OneOffEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="App.Config" />
     <EntityDeploy Include="Entities\OneOffEntities.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
       <LastGenOutput>OneOffEntities.Designer.cs</LastGenOutput>
     </EntityDeploy>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="App.Config" />
     <None Include="Entities\OneOffEntities.edmx.diagram">
       <DependentUpon>OneOffEntities.edmx</DependentUpon>
     </None>
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
+  <ItemGroup />
+  <ItemGroup>
     <Content Include="Entities\OneOffEntities.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <LastGenOutput>OneOffEntities.Context.cs</LastGenOutput>
       <DependentUpon>OneOffEntities.edmx</DependentUpon>
+      <LastGenOutput>OneOffEntities.Context.cs</LastGenOutput>
     </Content>
     <Content Include="Entities\OneOffEntities.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <DependentUpon>OneOffEntities.edmx</DependentUpon>
       <LastGenOutput>OneOffEntities.cs</LastGenOutput>
     </Content>
-  </ItemGroup>
-  <ItemGroup>
-    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

@@ -4,11 +4,11 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="ded91ffb08f04204bb7c01b29aded617" Name="Diagram1">
-        <EntityTypeShape EntityType="OneOffModel.Artist" Width="1.5" PointX="0.75" PointY="5" IsExpanded="true" />
-        <EntityTypeShape EntityType="OneOffModel.Gig" Width="1.5" PointX="3" PointY="5.125" IsExpanded="true" />
-        <EntityTypeShape EntityType="OneOffModel.Request" Width="1.5" PointX="3" PointY="1.25" IsExpanded="true" />
-        <EntityTypeShape EntityType="OneOffModel.Venue" Width="1.5" PointX="0.75" PointY="1" IsExpanded="true" />
+      <Diagram DiagramId="9152ee60bc874c9baf5683c4a9fdb387" Name="Diagram1">
+        <EntityTypeShape EntityType="OneOffModel.Artist" Width="2" PointX="4.875" PointY="4.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="OneOffModel.Gig" Width="1.5" PointX="8.5" PointY="4.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="OneOffModel.Request" Width="1.375" PointX="8.375" PointY="1" IsExpanded="true" />
+        <EntityTypeShape EntityType="OneOffModel.Venue" Width="2" PointX="4.875" PointY="0.75" IsExpanded="true" />
         <AssociationConnector Association="OneOffModel.FK_Gigs_ArtistId" ManuallyRouted="false" />
         <AssociationConnector Association="OneOffModel.FK_Requests_VenueId" ManuallyRouted="false" />
       </Diagram>

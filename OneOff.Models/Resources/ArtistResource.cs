@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace OneOff.Models.Resources
 {
-    public class ArtistCreateResource
+    public class ArtistResource
     {
         public string Name { get; set; }
         public string Description { get; set; }

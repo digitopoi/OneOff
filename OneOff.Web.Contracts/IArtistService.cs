@@ -9,6 +9,6 @@ namespace OneOff.Web.Contracts
 {
     public interface IArtistService
     {
-        Task<bool> CreateArtist(ArtistCreateResource artist);
+        Task<bool> CreateArtist(ArtistResource artist);
     }
 }

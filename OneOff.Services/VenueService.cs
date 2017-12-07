@@ -10,7 +10,7 @@ namespace OneOff.Services
 {
     public class VenueService : IVenueService
     {
-        public async Task<bool> CreateVenue(VenueCreateResource venue)
+        public async Task<bool> CreateVenue(VenueResource venue)
         {
             var entity =
                 new Venue()

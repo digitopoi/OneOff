@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace OneOff.Models.Resources
 {
-    public class VenueCreateResource
+    public class VenueResource
     {
         public string Name { get; set; }
         public string Description { get; set; }

@@ -11,7 +11,7 @@ namespace OneOff.Services
 {
     public class ArtistService : IArtistService
     {
-        public async Task<bool> CreateArtist(ArtistCreateResource artist)
+        public async Task<bool> CreateArtist(ArtistResource artist)
         {
             var entity =
                 new Artist()

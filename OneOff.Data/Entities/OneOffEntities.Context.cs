@@ -28,6 +28,7 @@ namespace OneOff.Data.Entities
         public virtual DbSet<Artist> Artists { get; set; }
         public virtual DbSet<Gig> Gigs { get; set; }
         public virtual DbSet<Request> Requests { get; set; }
+        public virtual DbSet<sysdiagram> sysdiagrams { get; set; }
         public virtual DbSet<Venue> Venues { get; set; }
     }
 }

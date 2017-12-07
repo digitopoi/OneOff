@@ -4,23 +4,23 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="OneOffModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="OneOffModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="Artists">
           <Key>
             <PropertyRef Name="ArtistId" />
           </Key>
-          <Property Name="ArtistId" Type="int" Nullable="false" />
+          <Property Name="ArtistId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Name" Type="nchar" MaxLength="50" Nullable="false" />
           <Property Name="Rating" Type="tinyint" />
           <Property Name="Description" Type="nchar" MaxLength="1000" />
-          <Property Name="UserName" Type="nchar" MaxLength="50" Nullable="false" />
-          <Property Name="Password" Type="nchar" MaxLength="25" Nullable="false" />
+          <Property Name="UserName" Type="nchar" MaxLength="50" />
+          <Property Name="Password" Type="nchar" MaxLength="25" />
         </EntityType>
         <EntityType Name="Gigs">
           <Key>
             <PropertyRef Name="GigId" />
           </Key>
-          <Property Name="GigId" Type="int" Nullable="false" />
+          <Property Name="GigId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Date" Type="datetime" Nullable="false" />
           <Property Name="PostalCode" Type="nchar" MaxLength="20" Nullable="false" />
           <Property Name="ArtistId" Type="int" Nullable="false" />
@@ -29,16 +29,26 @@
           <Key>
             <PropertyRef Name="RequestId" />
           </Key>
-          <Property Name="RequestId" Type="int" Nullable="false" />
+          <Property Name="RequestId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Date" Type="datetime" Nullable="false" />
           <Property Name="Offer" Type="decimal" Precision="9" Scale="0" Nullable="false" />
           <Property Name="VenueId" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="principal_id" Type="int" Nullable="false" />
+          <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="version" Type="int" />
+          <Property Name="definition" Type="varbinary(max)" />
         </EntityType>
         <EntityType Name="Venues">
           <Key>
             <PropertyRef Name="VenueId" />
           </Key>
-          <Property Name="VenueId" Type="int" Nullable="false" />
+          <Property Name="VenueId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Name" Type="nchar" MaxLength="50" Nullable="false" />
           <Property Name="Description" Type="nchar" MaxLength="1000" />
           <Property Name="Rating" Type="tinyint" />
@@ -74,6 +84,7 @@
           <EntitySet Name="Artists" EntityType="Self.Artists" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Gigs" EntityType="Self.Gigs" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Requests" EntityType="Self.Requests" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Venues" EntityType="Self.Venues" Schema="dbo" store:Type="Tables" />
           <AssociationSet Name="FK_Gigs_ArtistId" Association="Self.FK_Gigs_ArtistId">
             <End Role="Artists" EntitySet="Artists" />
@@ -84,8 +95,7 @@
             <End Role="Requests" EntitySet="Requests" />
           </AssociationSet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="OneOffModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -97,8 +107,8 @@
           <Property Name="Name" Type="String" MaxLength="50" FixedLength="true" Unicode="true" Nullable="false" />
           <Property Name="Rating" Type="Byte" />
           <Property Name="Description" Type="String" MaxLength="1000" FixedLength="true" Unicode="true" />
-          <Property Name="UserName" Type="String" MaxLength="50" FixedLength="true" Unicode="true" Nullable="false" />
-          <Property Name="Password" Type="String" MaxLength="25" FixedLength="true" Unicode="true" Nullable="false" />
+          <Property Name="UserName" Type="String" MaxLength="50" FixedLength="true" Unicode="true" />
+          <Property Name="Password" Type="String" MaxLength="25" FixedLength="true" Unicode="true" />
           <NavigationProperty Name="Gigs" Relationship="Self.FK_Gigs_ArtistId" FromRole="Artists" ToRole="Gigs" />
         </EntityType>
         <EntityType Name="Gig">
@@ -120,6 +130,16 @@
           <Property Name="Offer" Type="Decimal" Precision="9" Scale="0" Nullable="false" />
           <Property Name="VenueId" Type="Int32" Nullable="false" />
           <NavigationProperty Name="Venue" Relationship="Self.FK_Requests_VenueId" FromRole="Requests" ToRole="Venues" />
+        </EntityType>
+        <EntityType Name="sysdiagram">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="principal_id" Type="Int32" Nullable="false" />
+          <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="version" Type="Int32" />
+          <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
         </EntityType>
         <EntityType Name="Venue">
           <Key>
@@ -162,6 +182,7 @@
           <EntitySet Name="Artists" EntityType="Self.Artist" />
           <EntitySet Name="Gigs" EntityType="Self.Gig" />
           <EntitySet Name="Requests" EntityType="Self.Request" />
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagram" />
           <EntitySet Name="Venues" EntityType="Self.Venue" />
           <AssociationSet Name="FK_Gigs_ArtistId" Association="Self.FK_Gigs_ArtistId">
             <End Role="Artists" EntitySet="Artists" />
@@ -207,6 +228,17 @@
                 <ScalarProperty Name="Date" ColumnName="Date" />
                 <ScalarProperty Name="Offer" ColumnName="Offer" />
                 <ScalarProperty Name="VenueId" ColumnName="VenueId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="sysdiagrams">
+            <EntityTypeMapping TypeName="OneOffModel.sysdiagram">
+              <MappingFragment StoreEntitySet="sysdiagrams">
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="principal_id" ColumnName="principal_id" />
+                <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
+                <ScalarProperty Name="version" ColumnName="version" />
+                <ScalarProperty Name="definition" ColumnName="definition" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

@@ -9,6 +9,6 @@ namespace OneOff.Web.Contracts
 {
     public interface IVenueService
     {
-        Task<bool> CreateVenue(VenueCreateResource venue);
+        Task<bool> CreateVenue(VenueResource venue);
     }
 }

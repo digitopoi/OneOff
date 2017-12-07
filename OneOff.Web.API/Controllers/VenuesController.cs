@@ -18,8 +18,8 @@ namespace OneOff.Web.API.Controllers
     public class VenuesController : ApiController
     {
         // POST: api/Venues
-        [ResponseType(typeof(VenueCreateResource))]
-        public async Task<IHttpActionResult> PostVenue(VenueCreateResource venue)
+        [ResponseType(typeof(VenueResource))]
+        public async Task<IHttpActionResult> PostVenue(VenueResource venue)
         {
             var venueService = new VenueService();
             await venueService.CreateVenue(venue);

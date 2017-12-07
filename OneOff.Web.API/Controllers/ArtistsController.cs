@@ -18,8 +18,8 @@ namespace OneOff.Web.API.Controllers
     public class ArtistsController : ApiController
     {
         // POST: api/Artists
-        [ResponseType(typeof(Artist))]
-        public async Task<IHttpActionResult> PostArtist(ArtistCreateResource artist)
+        [ResponseType(typeof(ArtistResource))]
+        public async Task<IHttpActionResult> PostArtist(ArtistResource artist)
         {
             if (!ModelState.IsValid)
             {
