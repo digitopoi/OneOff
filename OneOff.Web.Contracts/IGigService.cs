@@ -9,10 +9,10 @@ namespace OneOff.Web.Contracts
 {
     public interface IGigService
     {
-        Task<GigResource> GetGigById (int id);
-        Task<bool> CreateGig (GigResource gig);
-        Task<IEnumerable<GigResource>> GetGigs ();
-        Task<bool> UpdateGig (GigResource gig);
-        Task<bool> DeleteGig(int id);
+        GigResource GetGigById (int id);
+        bool CreateGig (GigResource gig);
+        IEnumerable<GigResource> GetGigs ();
+        bool UpdateGig (int id, GigUpdateResource gig);
+        bool DeleteGig(int id);
     }
 }

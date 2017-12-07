@@ -8,9 +8,7 @@ namespace OneOff.Models.Resources
 {
     public class GigUpdateResource
     {
-        public int GigId { get; set; }
         public DateTime Date { get; set; }
         public string PostalCode { get; set; }
-        public int ArtistId { get; set; }
     }
 }

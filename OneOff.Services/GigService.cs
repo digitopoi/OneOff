@@ -12,7 +12,7 @@ namespace OneOff.Services
 {
     public class GigService : IGigService
     {
-        public async Task<bool> CreateGig(GigResource gig)
+        public bool CreateGig(GigResource gig)
         {
             var entity =
                 new Gig()
@@ -24,33 +24,38 @@ namespace OneOff.Services
 
             using (var context = new OneOffEntities())
             {
+                Artist artist = context
+                                        .Artists
+                                        .SingleOrDefault(a => a.ArtistId == entity.ArtistId);
+
+                artist.Gigs.Add(entity);
                 context.Gigs.Add(entity);
-                return await context.SaveChangesAsync() == 1;
+                return context.SaveChanges() == 1;
             }
         }
 
-        public async Task<bool> DeleteGig(int id)
+        public bool DeleteGig(int id)
         {
             using (var context = new OneOffEntities())
             {
                 var entity = context
                                     .Gigs
                                     //  TODO: check ownership
-                                    .Single(e => e.GigId == id);
+                                    .SingleOrDefault(e => e.GigId == id);
 
                 context.Gigs.Remove(entity);
-                return await context.SaveChangesAsync() == 1;
+                return context.SaveChanges() == 1;
             }
         }
 
-        public async Task<GigResource> GetGigById(int id)
+        public GigResource GetGigById(int id)
         {
             using (var context = new OneOffEntities())
             {
-                var entity = await context
-                                          .Gigs
-                                          //  TODO: check ownership
-                                          .SingleOrDefaultAsync(e => e.GigId == id);
+                var entity = context
+                                   .Gigs
+                                   //  TODO: check ownership
+                                   .SingleOrDefault(e => e.GigId == id);
 
                 return
                     new GigResource
@@ -62,41 +67,40 @@ namespace OneOff.Services
             }
         }
 
-        public async Task<IEnumerable<GigResource>> GetGigs()
+        public IEnumerable<GigResource> GetGigs()
         {
             using (var context = new OneOffEntities())
             {
-                var query = await
-                    context
-                            .Gigs
-                            .Select(
-                                e =>
-                                    new GigResource
-                                    {
-                                        Date = e.Date,
-                                        PostalCode = e.PostalCode,
-                                        ArtistId = e.ArtistId
-                                    }
-                            )
-                            .ToArrayAsync();
+                var query =  context
+                                    .Gigs
+                                    .Select(
+                                        e =>
+                                            new GigResource
+                                            {
+                                                Date = e.Date,
+                                                PostalCode = e.PostalCode,
+                                                ArtistId = e.ArtistId
+                                            }
+                                    );
 
-                return query;
+                return query.ToArray();
             }
         }
 
-        public async Task<bool> UpdateGig(GigUpdateResource gig)
+        public bool UpdateGig(int id, GigUpdateResource gig)
         {
             using (var context = new OneOffEntities())
             {
-                var entity = await context
-                                        .Gigs
-                                        .SingleOrDefaultAsync(e => e.GigId == gig.GigId);
+                var entity = context
+                                   .Gigs
+                                   .SingleOrDefault(e => e.GigId == id);
 
                 entity.Date = gig.Date;
                 entity.PostalCode = gig.PostalCode;
 
-                return await context.SaveChangesAsync() == 1;
+                return context.SaveChanges() == 1;
             }
         }
+
     }
 }

@@ -20,10 +20,10 @@ namespace OneOff.Services
                     Description = artist.Description
                 };
 
-            using (var ctx = new OneOffEntities())
+            using (var context = new OneOffEntities())
             {
-                ctx.Artists.Add(entity);
-                return await ctx.SaveChangesAsync() == 1;
+                context.Artists.Add(entity);
+                return await context.SaveChangesAsync() == 1;
             }
         }
     }
