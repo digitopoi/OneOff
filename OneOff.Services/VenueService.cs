@@ -4,7 +4,7 @@ using System.Web.ModelBinding;
 using System.Web.Http;
 using System.Threading.Tasks;
 using System.Data.Entity.Infrastructure;
-using OneOff.Web.Contracts;
+using OneOff.Contracts;
 
 namespace OneOff.Services
 {

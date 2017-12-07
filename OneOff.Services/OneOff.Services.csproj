@@ -66,9 +66,9 @@
       <Project>{89d0f430-ea1b-4057-8919-109a84028a50}</Project>
       <Name>OneOff.Models</Name>
     </ProjectReference>
-    <ProjectReference Include="..\OneOff.Web.Contracts\OneOff.Web.Contracts.csproj">
+    <ProjectReference Include="..\OneOff.Web.Contracts\OneOff.Contracts.csproj">
       <Project>{D86BE999-45F7-4C86-A217-036EE2A61F1C}</Project>
-      <Name>OneOff.Web.Contracts</Name>
+      <Name>OneOff.Contracts</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

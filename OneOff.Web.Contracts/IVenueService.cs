@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace OneOff.Web.Contracts
+namespace OneOff.Contracts
 {
     public interface IVenueService
     {
