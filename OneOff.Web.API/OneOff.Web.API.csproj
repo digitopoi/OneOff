@@ -46,14 +46,11 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="AutoMapper, Version=6.2.2.0, Culture=neutral, PublicKeyToken=be96cd2c38ef1005, processorArchitecture=MSIL">
-      <HintPath>..\packages\AutoMapper.6.2.2\lib\net45\AutoMapper.dll</HintPath>
-    </Reference>
     <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
-      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.dll</HintPath>
+      <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.dll</HintPath>
     </Reference>
     <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
-      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+      <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.CodeDom.Providers.DotNetCompilerPlatform, Version=1.0.7.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.7\lib\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll</HintPath>
@@ -277,6 +274,14 @@
     <ProjectReference Include="..\OneOff.Data\OneOff.Data.csproj">
       <Project>{1ef24153-95a5-44bb-94a0-75443a2d7bda}</Project>
       <Name>OneOff.Data</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\OneOff.Models\OneOff.Models.csproj">
+      <Project>{89D0F430-EA1B-4057-8919-109A84028A50}</Project>
+      <Name>OneOff.Models</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\OneOff.Services\OneOff.Services.csproj">
+      <Project>{393cce11-c070-43ef-bf1b-1579b94482fe}</Project>
+      <Name>OneOff.Services</Name>
     </ProjectReference>
   </ItemGroup>
   <PropertyGroup>
