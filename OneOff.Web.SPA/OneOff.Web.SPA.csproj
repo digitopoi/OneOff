@@ -4,7 +4,7 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>448baece-2336-4918-88e5-a2a60e7b1a6a</ProjectGuid>
+    <ProjectGuid>a8aeaf5c-65c6-47eb-8eb9-3b7b68474283</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>OneOff.Web.SPA</RootNamespace>
