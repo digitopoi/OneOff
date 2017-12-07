@@ -4,10 +4,11 @@ using System.Web.ModelBinding;
 using System.Web.Http;
 using System.Threading.Tasks;
 using System.Data.Entity.Infrastructure;
+using OneOff.Web.Contracts;
 
 namespace OneOff.Services
 {
-    public class VenueService
+    public class VenueService : IVenueService
     {
         public async Task<bool> CreateVenue(VenueCreateResource venue)
         {
