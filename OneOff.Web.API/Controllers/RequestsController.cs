@@ -10,24 +10,27 @@ using System.Threading.Tasks;
 using System.Web.Http;
 using System.Web.Http.Description;
 using OneOff.Data.Entities;
+using OneOff.Services;
+using OneOff.Models.Resources;
 
 namespace OneOff.Web.API.Controllers
 {
     public class RequestsController : ApiController
     {
-        private OneOffEntities db = new OneOffEntities();
-
         // GET: api/Requests
-        public IQueryable<Request> GetRequests()
+        public IHttpActionResult GetRequests()
         {
-            return db.Requests;
+            var requestService = new RequestService();
+            var requests = requestService.GetRequests();
+            return Ok(requests);
         }
 
         // GET: api/Requests/5
-        [ResponseType(typeof(Request))]
-        public async Task<IHttpActionResult> GetRequest(int id)
+        [ResponseType(typeof(RequestResource))]
+        public IHttpActionResult GetRequest(int id)
         {
-            Request request = await db.Requests.FindAsync(id);
+            var requestService = new RequestService();
+            var request = requestService.GetRequestById(id);
             if (request == null)
             {
                 return NotFound();
@@ -38,97 +41,47 @@ namespace OneOff.Web.API.Controllers
 
         // PUT: api/Requests/5
         [ResponseType(typeof(void))]
-        public async Task<IHttpActionResult> PutRequest(int id, Request request)
+        public IHttpActionResult PutRequest(int id, RequestUpdateResource request)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
 
-            if (id != request.RequestId)
-            {
-                return BadRequest();
-            }
+            var requestService = new RequestService();
 
-            db.Entry(request).State = EntityState.Modified;
+            if (!requestService.UpdateRequest(id, request))
+                return InternalServerError();
 
-            try
-            {
-                await db.SaveChangesAsync();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!RequestExists(id))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
-            }
-
-            return StatusCode(HttpStatusCode.NoContent);
+            return Ok();
         }
 
         // POST: api/Requests
-        [ResponseType(typeof(Request))]
-        public async Task<IHttpActionResult> PostRequest(Request request)
+        [ResponseType(typeof(RequestResource))]
+        public IHttpActionResult PostRequest(RequestResource request)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
+            var requestService = new RequestService();
+            if (!requestService.CreateRequest(request))
+                return InternalServerError();
 
-            db.Requests.Add(request);
-
-            try
-            {
-                await db.SaveChangesAsync();
-            }
-            catch (DbUpdateException)
-            {
-                if (RequestExists(request.RequestId))
-                {
-                    return Conflict();
-                }
-                else
-                {
-                    throw;
-                }
-            }
-
-            return CreatedAtRoute("DefaultApi", new { id = request.RequestId }, request);
+            return Ok();
         }
 
         // DELETE: api/Requests/5
-        [ResponseType(typeof(Request))]
-        public async Task<IHttpActionResult> DeleteRequest(int id)
+        [ResponseType(typeof(RequestResource))]
+        public IHttpActionResult DeleteRequest(int id)
         {
-            Request request = await db.Requests.FindAsync(id);
-            if (request == null)
-            {
-                return NotFound();
-            }
+            var requestService = new RequestService();
 
-            db.Requests.Remove(request);
-            await db.SaveChangesAsync();
+            if (!requestService.DeleteRequest(id))
+                return InternalServerError();
 
-            return Ok(request);
+            return Ok();
         }
 
-        protected override void Dispose(bool disposing)
-        {
-            if (disposing)
-            {
-                db.Dispose();
-            }
-            base.Dispose(disposing);
-        }
-
-        private bool RequestExists(int id)
-        {
-            return db.Requests.Count(e => e.RequestId == id) > 0;
-        }
     }
 }

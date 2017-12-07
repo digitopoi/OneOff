@@ -55,6 +55,8 @@
     <Compile Include="Resources\ArtistResource.cs" />
     <Compile Include="Resources\GigResource.cs" />
     <Compile Include="Resources\GigUpdateResource.cs" />
+    <Compile Include="Resources\RequestResource.cs" />
+    <Compile Include="Resources\RequestUpdateResource.cs" />
     <Compile Include="Resources\VenueResource.cs" />
   </ItemGroup>
   <ItemGroup>

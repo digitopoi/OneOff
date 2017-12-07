@@ -42,6 +42,7 @@
   <ItemGroup>
     <Compile Include="IArtistService.cs" />
     <Compile Include="IGigService.cs" />
+    <Compile Include="IRequestService.cs" />
     <Compile Include="IVenueService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
