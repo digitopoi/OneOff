@@ -1,8 +1,10 @@
 //  Angular Modules
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
+import { HttpModule } from '@angular/http';
 
 //  Material Components
 import {
@@ -16,6 +18,7 @@ import {
 import { AppComponent } from './app.component';
 import { HeaderComponent } from './components/header/header.component';
 import { RegistrationComponent } from './components/registration/registration.component';
+import { AuthService } from './services/auth.service';
 
 const routes = [
   { path: 'register', component: RegistrationComponent },
@@ -33,12 +36,16 @@ const routes = [
     FormsModule,
     RouterModule.forRoot(routes),
     ReactiveFormsModule,
+    HttpModule,
+    BrowserAnimationsModule,
     MatButtonModule,
     MatToolbarModule,
     MatFormFieldModule,
     MatInputModule
   ],
-  providers: [],
+  providers: [
+    AuthService
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
