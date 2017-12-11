@@ -19,6 +19,7 @@ import { AppComponent } from './app.component';
 import { HeaderComponent } from './components/header/header.component';
 import { RegistrationComponent } from './components/registration/registration.component';
 import { AuthService } from './services/auth.service';
+import { LandingComponent } from './landing/landing.component';
 
 const routes = [
   { path: 'register', component: RegistrationComponent },
@@ -29,7 +30,8 @@ const routes = [
   declarations: [
     AppComponent,
     HeaderComponent,
-    RegistrationComponent
+    RegistrationComponent,
+    LandingComponent
   ],
   imports: [
     BrowserModule,
