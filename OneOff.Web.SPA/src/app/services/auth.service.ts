@@ -1,15 +1,25 @@
 import { Injectable } from '@angular/core';
-import { RegisterUser } from '../models/RegisterUser';
-import { Http } from '@angular/http';
+import { Router } from '@angular/router';
+import 'rxjs/add/operator/filter';
+import * as auth0 from 'auth0-js';
 
 const Api_Url = 'http://kcpelevennoteapie.azurewebsites.net';
 @Injectable()
 export class AuthService {
 
-  constructor(private _http: Http) { }
+  auth0 = new auth0.WebAuth({
+    clientID: 'tAjGawAUTgk7Ea5KdOfL6elL7pMgfjDq',
+    domain: 'one-off.auth0.com',
+    responseType: 'token id_token',
+    audience: 'https://one-off.auth0.com/userinfo',
+    redirectUri: 'http://localhost:4200/artist',
+    scope: 'openid'
+  });
 
-  register(regUserData: RegisterUser) {
-    return this._http.post(`$Api_Url/api/Register`, regUserData);
+  constructor(public router: Router) { }
+
+  public login(): void {
+    this.auth0.authorize();
   }
 
 }
