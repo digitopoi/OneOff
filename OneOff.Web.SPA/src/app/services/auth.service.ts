@@ -13,7 +13,8 @@ export class AuthService {
     responseType: 'token id_token',
     audience: 'https://one-off.auth0.com/userinfo',
     redirectUri: 'http://localhost:4200/artist',
-    scope: 'openid'
+    scope: 'openid',
+    type: ''
   });
 
   constructor(public router: Router) { }
@@ -54,13 +55,13 @@ export class AuthService {
 
   public venueLogin(): void {
     this.auth0.authorize({
-      type: 'venue'
+      redirectUri: 'http://localhost:4200/venue'
     });
   }
 
   public artistLogin(): void {
     this.auth0.authorize({
-      type: 'artist'
+      redirectUri: 'http://localhost:4200/artist'
     });
   }
 
