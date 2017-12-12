@@ -22,6 +22,7 @@ import { AuthService } from './services/auth.service';
 import { LandingComponent } from './components/landing/landing.component';
 import { ArtistComponent } from './components/artist/artist.component';
 import { VenueComponent } from './components/venue/venue.component';
+import { ArtistUserInputComponent } from './components/artist/artist-user-input/artist-user-input.component';
 
 const routes = [
   { path: 'venue', component: VenueComponent },
@@ -38,6 +39,7 @@ const routes = [
     RegistrationComponent,
     LandingComponent,
     ArtistComponent,
+    ArtistUserInputComponent,
     VenueComponent
   ],
   imports: [
