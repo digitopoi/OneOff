@@ -1,8 +1,11 @@
 <header>
   <h1>Welcome to OneOff!</h1>
   <p>Buy the ticket, take the ride.</p>
-  <div class="button">
-    <a mat-raised-button class="nav-btn" href="/artist">Register</a>
-    <a mat-raised-button class="nav-btn" (click)="onLogin()">Login</a>
+  <div class="register-buttons">
+    <a mat-raised-button class="nav-btn" (click)="onArtistRegister()">Create Artist</a>
+    <a mat-raised-button class="nav-btn" (click)="onVenueRegister()">Create Venue</a>
+  </div>
+  <div class="register-buttons">
+    <a mat-raised-button class="nav-btn" href="/artist">Login</a>
   </div>
 </header>

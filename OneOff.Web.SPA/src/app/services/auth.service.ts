@@ -52,6 +52,18 @@ export class AuthService {
     this.auth0.authorize();
   }
 
+  public venueLogin(): void {
+    this.auth0.authorize({
+      type: 'venue'
+    });
+  }
+
+  public artistLogin(): void {
+    this.auth0.authorize({
+      type: 'artist'
+    });
+  }
+
   public isAuthenticated(): boolean {
     // Check whether the current time is past the
     // access token's expiry time
